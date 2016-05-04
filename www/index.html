@@ -100,6 +100,48 @@
     <script type="text/javascript">
         app.initialize();
 
+        // load more content
+        var loadable = 0;
+        var readclick = 0;
+        var offset = 10;
+        function loadMore(){
+            if($(window).scrollTop() + $(window).height() > $(document).height()  - 50 && loadable==0) {
+                loadable = 1;
+                $.ajax({
+                  url: 'http://nightlifepartyagenda.nl/e983upktxkea/items/'+offset,
+                  type: 'GET',
+                  dataType: "JSON",
+                  success: function (data) {
+                      
+                    if( !$.isArray(data) ||  !data.length ) {
+                        $('.loadmore').hide();
+                      }
+
+                      $.each( data, function( key, val ) {
+                        $(".item-top-container").append("<div class='row base-row row-"+val.id+"'><div class='col-xs-12'><div class='datetime'><p class='date'>"+val.date+"</p></div></div><div class='col-xs-3'><img class='event-image' id='event-"+val.id+"' alt='"+val.name+"' src='http://nightlifepartyagenda.nl/images/events/"+val.image+"'></div><div class='col-xs-9 no-p-l'><p class='title'>"+val.name+"</p><p class='subtitle'>"+val.subtitle+"</p><div class='line-up' id='colorlineup-"+val.id+"'><strong style='color: rgb("+val.colour+")'>Line up:</strong><br/>"+val.line_up+"</div><a class='read-more' style='display:none;' href='#'>Lees meer</a><p class='location' id='colorlocation-"+val.id+"'><strong style='color: rgb("+val.colour+")'>Location: </strong><span>"+val.location+"</span></p><div class='links pull-right' id='link-container-"+val.id+"'></div></div></div>");
+
+                        if(val.link !== null  && val.link !== ""){
+                          $("#link-container-"+val.id).append("<a class='link-btn' target='_BLANK' onclick='openUrl(\""+val.link+"\");'>Website</a>");
+                        }
+                        if(val.ticket !== null  && val.ticket !== ""){
+                          $("#link-container-"+val.id).append("<a class='link-btn m-l-h' target='_BLANK' onclick='openUrl(\""+val.ticket+"\");'>Tickets</a>");
+                        }
+                      });
+
+                      offset = offset+10;
+                      loadable = 0;
+                      console.log(offset);
+
+                      
+
+                  }
+              });
+              return false;
+             }
+            
+        }
+
+        // init get content
         function init(){
             // HIGHLIGHTS
             $.getJSON( "http://nightlifepartyagenda.nl/e983upktxkea/highlights", function( data ) {
@@ -160,12 +202,6 @@
                 });
               }
             });
-        }
-
-        init();
-
-        document.addEventListener("deviceready", function(){
-            init();
 
             // fix date format
             $('#search-date').on('blur', function() {
@@ -182,60 +218,28 @@
               val = val[2]+"-"+val[1]+"-"+val[0];
               $('#search-date').val(val);
             });
-        });
+            // handle url opens
+            function openUrl(url){
+                window.open(url, '_blank', 'location=yes');
+                return false;
+                event.preventDefault();
+            }
+            // handle search button
+            $( "#search-btn" ).click(function() {
+                if(!$("#search-date").val() && !$("#search-title").val()){
+                    return false;
+                }
+            });
+            // handle load more content
+            $(window).scroll(function() {
+                loadMore();
+            });
 
-        function openUrl(url){
-            window.open(url, '_blank', 'location=yes');
-            return false;
-            event.preventDefault();
         }
 
-        $( "#search-btn" ).click(function() {
-            if(!$("#search-date").val() && !$("#search-title").val()){
-                return false;
-            }
-        });
+        init();
 
-        document.addEventListener("deviceready", function(){
-        var loadable = 0;
-        var readclick = 0;
-        var offset = 10;
-        $(window).scroll(function() {
-             if($(window).scrollTop() + $(window).height() > $(document).height()  - 50 && loadable==0) {
-                loadable = 1;
-                $.ajax({
-                  url: 'http://nightlifepartyagenda.nl/e983upktxkea/items/'+offset,
-                  type: 'GET',
-                  dataType: "JSON",
-                  success: function (data) {
-                      
-                    if( !$.isArray(data) ||  !data.length ) {
-                        $('.loadmore').hide();
-                      }
-
-                      $.each( data, function( key, val ) {
-                        $(".item-top-container").append("<div class='row base-row row-"+val.id+"'><div class='col-xs-12'><div class='datetime'><p class='date'>"+val.date+"</p></div></div><div class='col-xs-3'><img class='event-image' id='event-"+val.id+"' alt='"+val.name+"' src='http://nightlifepartyagenda.nl/images/events/"+val.image+"'></div><div class='col-xs-9 no-p-l'><p class='title'>"+val.name+"</p><p class='subtitle'>"+val.subtitle+"</p><div class='line-up' id='colorlineup-"+val.id+"'><strong style='color: rgb("+val.colour+")'>Line up:</strong><br/>"+val.line_up+"</div><a class='read-more' style='display:none;' href='#'>Lees meer</a><p class='location' id='colorlocation-"+val.id+"'><strong style='color: rgb("+val.colour+")'>Location: </strong><span>"+val.location+"</span></p><div class='links pull-right' id='link-container-"+val.id+"'></div></div></div>");
-
-                        if(val.link !== null  && val.link !== ""){
-                          $("#link-container-"+val.id).append("<a class='link-btn' target='_BLANK' onclick='openUrl(\""+val.link+"\");'>Website</a>");
-                        }
-                        if(val.ticket !== null  && val.ticket !== ""){
-                          $("#link-container-"+val.id).append("<a class='link-btn m-l-h' target='_BLANK' onclick='openUrl(\""+val.ticket+"\");'>Tickets</a>");
-                        }
-                      });
-
-                      offset = offset+10;
-                      loadable = 0;
-                      console.log(offset);
-
-                      
-
-                  }
-              });
-              return false;
-             }
-          });
-        } );
+        
 
     </script>
 
@@ -309,7 +313,7 @@ document.addEventListener("deviceready", function(){
       });
     </script>
   </div>
-    
+
 </body>
 
 </html>
