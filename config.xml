@@ -4,8 +4,8 @@
     <description>
         Hello World sample application that responds to the deviceready event.
     </description>
-    <author email="support@phonegap.com" href="http://phonegap.com">
-        PhoneGap Team
+    <author email="info@mediacompanion.nl" href="http://mediacompanion.nl">
+        Media Companion
     </author>
     <content src="index.html" />
     <preference name="DisallowOverscroll" value="true" />
