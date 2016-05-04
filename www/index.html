@@ -219,12 +219,6 @@
               val = val[2]+"-"+val[1]+"-"+val[0];
               $('#search-date').val(val);
             });
-            // handle url opens
-            function openUrl(url){
-                window.open(url, '_blank', 'location=yes');
-                return false;
-                event.preventDefault();
-            }
             // handle search button
             $( "#search-btn" ).click(function() {
                 if(!$("#search-date").val() && !$("#search-title").val()){
@@ -247,6 +241,12 @@
 
         init();
 
+        // handle url opens
+          function openUrl(url){
+              window.open(url, '_blank', 'location=yes');
+              return false;
+              event.preventDefault();
+          }
         
 
     </script>
