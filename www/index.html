@@ -229,13 +229,6 @@
             $(window).scroll(function() {
                 loadMore();
             });
-            //pop-ip handler
-            idleTime = 0;
-            jQuerylimit = 5;
-            if (localStorage.getItem("pop_status") !== '1') {
-              localStorage.setItem("pop_status", "1");
-              $('.subs-popup').show();
-            }
 
         }
 
@@ -248,6 +241,26 @@
               event.preventDefault();
           }
         
+        function NewsletterPop(){
+          //pop-ip handler
+          idleTime = 0;
+          jQuerylimit = 5;
+          if (localStorage.getItem("pop_status") !== '1') {
+            localStorage.setItem("pop_status", "1");
+            $('.subs-popup').show();
+          }
+        }
+        NewsletterPop();
+
+        $( "#mc_embed_signup" ).click(function() {
+          event.stopPropagation();
+        });
+        $('.email-close').click(function() {
+          $('.subs-popup').hide();
+        });
+        $('.subs-popup').click(function() {
+          $(this).hide();
+        });
 
     </script>
 
@@ -298,17 +311,6 @@
       </div>
       </form>
     </div>
-    <script type="text/javascript">
-      $( "#mc_embed_signup" ).click(function() {
-        event.stopPropagation();
-      });
-      $('.email-close').click(function() {
-        $('.subs-popup').hide();
-      });
-      $('.subs-popup').click(function() {
-        $(this).hide();
-      });
-    </script>
   </div>
 
 </body>
