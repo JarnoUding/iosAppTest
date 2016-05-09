@@ -140,22 +140,25 @@
   </div>
 
   <script type="text/javascript">
-    //pop-ip handler
-    idleTime = 0;
-    jQuerylimit = 5;
-    if (window.localStorage.getItem("pop_status") !== '4') {
-      window.localStorage.setItem("pop_status", "4");
-      $('.subs-popup').show();
-      $( "#mc_embed_signup" ).click(function() {
-        event.stopPropagation();
-      });
-      $('.email-close').click(function() {
-        $('.subs-popup').hide();
-      });
-      $('.subs-popup').click(function() {
-        $(this).hide();
-      });
+    function newsPop(){
+      //pop-ip handler
+      idleTime = 0;
+      jQuerylimit = 5;
+      if (window.localStorage.getItem("pop_status") !== '4') {
+        window.localStorage.setItem("pop_status", "4");
+        $('.subs-popup').show();
+        $( "#mc_embed_signup" ).click(function() {
+          event.stopPropagation();
+        });
+        $('.email-close').click(function() {
+          $('.subs-popup').hide();
+        });
+        $('.subs-popup').click(function() {
+          $(this).hide();
+        });
+      }
     }
+    newsPop();
   </script>
 
     <style type="text/css">
