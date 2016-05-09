@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <!--
     Copyright (c) 2012-2016 Adobe Systems Incorporated. All rights reserved.
+
     Licensed to the Apache Software Foundation (ASF) under one
     or more contributor license agreements.  See the NOTICE file
     distributed with this work for additional information
@@ -8,7 +9,9 @@
     to you under the Apache License, Version 2.0 (the
     "License"); you may not use this file except in compliance
     with the License.  You may obtain a copy of the License at
+
     http://www.apache.org/licenses/LICENSE-2.0
+
     Unless required by applicable law or agreed to in writing,
     software distributed under the License is distributed on an
     "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -97,6 +100,7 @@
     <script type="text/javascript" src="js/js.cookie.js"></script>
     <script type="text/javascript">
         app.initialize();
+
         // load more content
         var loadable = 0;
         var readclick = 0;
@@ -113,8 +117,10 @@
                     if( !$.isArray(data) ||  !data.length ) {
                         $('.loadmore').hide();
                       }
+
                       $.each( data, function( key, val ) {
                         $(".item-top-container").append("<div class='row base-row row-"+val.id+"'><div class='col-xs-12'><div class='datetime'><p class='date'>"+val.date+"</p></div></div><div class='col-xs-3'><img class='event-image' id='event-"+val.id+"' alt='"+val.name+"' src='http://nightlifepartyagenda.nl/images/events/"+val.image+"'></div><div class='col-xs-9 no-p-l'><p class='title'>"+val.name+"</p><p class='subtitle'>"+val.subtitle+"</p><div class='line-up' id='colorlineup-"+val.id+"'><strong style='color: rgb("+val.colour+")'>Line up:</strong><br/>"+val.line_up+"</div><a class='read-more' style='display:none;' href='#'>Lees meer</a><p class='location' id='colorlocation-"+val.id+"'><strong style='color: rgb("+val.colour+")'>Location: </strong><span>"+val.location+"</span></p><div class='links pull-right' id='link-container-"+val.id+"'></div></div></div>");
+
                         if(val.link !== null  && val.link !== ""){
                           $("#link-container-"+val.id).append("<a class='link-btn' target='_BLANK' onclick='openUrl(\""+val.link+"\");'>Website</a>");
                         }
@@ -122,29 +128,37 @@
                           $("#link-container-"+val.id).append("<a class='link-btn m-l-h' target='_BLANK' onclick='openUrl(\""+val.ticket+"\");'>Tickets</a>");
                         }
                       });
+
                       offset = offset+10;
                       loadable = 0;
                       console.log(offset);
+
                       
+
                   }
               });
               return false;
              }
             
         }
+
         // init get content
         function init(){
             // HIGHLIGHTS
             $.getJSON( "http://nightlifepartyagenda.nl/e983upktxkea/highlights", function( data ) {
               if(data.length > 0){
+
                 $('.highlight-load').hide();
                   $('.init-load').hide();
+
                 // make highlight top container
                 $( ".hightlights-top-container" ).append( "<h2 class='highlights-title'>Highlight<span>s</span>:</h2><div class='highlight-container row highlight' style='margin-bottom: 12px;'></div>" );
                 // append highlight item
                 $.each( data, function( key, val ) {
                   $(".highlight-container").append("<div class='highlight-slide'><div class='slide-inner'><div class='col-xs-12'><div class='datetime'><p class='date'>"+val.date+"</p></div></div><div class='col-xs-3'><img class='event-image' alt='"+val.name+"' src='http://nightlifepartyagenda.nl/images/events/"+val.image+"'></div><div class='col-xs-9 no-p-l'><p class='title'>"+val.name+"</p><p class='subtitle'>"+val.subtitle+"</p><div class='line-up'><strong>Line up:</strong><br/>"+val.line_up+"</div><a class='read-more' style='display:none;' href='#'>Lees meer</a><p class='location'><strong>Location: </strong><span>"+val.location+"</span></p><div class='links pull-right'><a class='link-btn' onclick='openUrl(\""+val.link+"\");'>Website</a><a class='link-btn m-l-h' onclick='openUrl(\""+val.ticket+"\");'>Tickets</a></div></div></div></div>");
+
                     
+
                 });
                 // init highlights slider
                 $('.highlight-container').slick({
@@ -166,6 +180,9 @@
                       }
                     }
                   ]
+
+
+
                 });
               }
             });
@@ -175,15 +192,18 @@
               if(data.length > 0){
                 $.each( data, function( key, val ) {
                   $(".item-top-container").append("<div class='row base-row row-"+val.id+"'><div class='col-xs-12'><div class='datetime'><p class='date'>"+val.date+"</p></div></div><div class='col-xs-3'><img class='event-image' id='event-"+val.id+"' alt='"+val.name+"' src='http://nightlifepartyagenda.nl/images/events/"+val.image+"'></div><div class='col-xs-9 no-p-l'><p class='title'>"+val.name+"</p><p class='subtitle'>"+val.subtitle+"</p><div class='line-up' id='colorlineup-"+val.id+"'><strong style='color: rgb("+val.colour+")'>Line up:</strong><br/>"+val.line_up+"</div><a class='read-more' style='display:none;' href='#'>Lees meer</a><p class='location' id='colorlocation-"+val.id+"'><strong style='color: rgb("+val.colour+")'>Location: </strong><span>"+val.location+"</span></p><div class='links pull-right' id='link-container-"+val.id+"'></div></div></div>");
+
                   if(val.link !== null  && val.link !== ""){
                     $("#link-container-"+val.id).append("<a class='link-btn' target='_BLANK' onclick='openUrl(\""+val.link+"\");'>Website</a>");
                   }
                   if(val.ticket !== null  && val.ticket !== ""){
                     $("#link-container-"+val.id).append("<a class='link-btn m-l-h' target='_BLANK' onclick='openUrl(\""+val.ticket+"\");'>Tickets</a>");
                   }
+
                 });
               }
             });
+
             // fix date format
             $('#search-date').on('blur', function() {
               val =  $('#search-date').val();
@@ -191,6 +211,7 @@
               val = val[2]+"-"+val[1]+"-"+val[0];
               $('#search-date').val(val);
             });
+
             // submit fix date format
             $( "#search-form" ).submit(function( event ) {
               val =  $('#search-date').val();
@@ -215,8 +236,11 @@
               localStorage.setItem("pop_status", "1");
               $('.subs-popup').show();
             }
+
         }
+
         init();
+
         // handle url opens
           function openUrl(url){
               window.open(url, '_blank', 'location=yes');
@@ -224,6 +248,7 @@
               event.preventDefault();
           }
         
+
     </script>
 
 <div class="subs-popup">
