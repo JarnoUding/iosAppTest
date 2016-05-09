@@ -87,8 +87,7 @@
     </div>
 
 
-    <script type="text/javascript" src="cordova.js"></script>
-    <script type="text/javascript" src="js/index.js"></script>
+    
 
     <div class="subs-popup">
   
@@ -139,30 +138,6 @@
     </div>
   </div>
 
-  <script type="text/javascript">
-  app.initialize();
-
-    function newsPop(){
-      //pop-ip handler
-      idleTime = 0;
-      jQuerylimit = 5;
-      if (window.localStorage.getItem("pop_status") !== '12') {
-        window.localStorage.setItem("pop_status", "5");
-        $('.subs-popup').show();
-        $( "#mc_embed_signup" ).click(function() {
-          event.stopPropagation();
-        });
-        $('.email-close').click(function() {
-          $('.subs-popup').hide();
-        });
-        $('.subs-popup').click(function() {
-          $(this).hide();
-        });
-      }
-    }
-    newsPop();
-  </script>
-
     <style type="text/css">
         .datepicker{
             -webkit-appearance: none;
@@ -172,10 +147,10 @@
         }
     </style>
 
-    
-    <script type="text/javascript" src="js/js.cookie.js"></script>
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
     <script type="text/javascript">
-        
+        app.initialize();
 
         // load more content
         var loadable = 0;
@@ -316,7 +291,26 @@
               return false;
               event.preventDefault();
           }
-        
+          
+          function newsPop(){
+            //pop-ip handler
+            idleTime = 0;
+            jQuerylimit = 5;
+            if (window.localStorage.getItem("pop_status") !== '12') {
+              window.localStorage.setItem("pop_status", "5");
+              $('.subs-popup').show();
+              $( "#mc_embed_signup" ).click(function() {
+                event.stopPropagation();
+              });
+              $('.email-close').click(function() {
+                $('.subs-popup').hide();
+              });
+              $('.subs-popup').click(function() {
+                $(this).hide();
+              });
+            }
+          }
+          newsPop();
 
     </script>
 
