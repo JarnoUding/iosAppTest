@@ -142,17 +142,6 @@
       </div>
       </form>
     </div>
-    <script type="text/javascript">
-      $( "#mc_embed_signup" ).click(function() {
-        event.stopPropagation();
-      });
-      $('.email-close').click(function() {
-        $('.subs-popup').hide();
-      });
-      $('.subs-popup').click(function() {
-        $(this).hide();
-      });
-    </script>
   </div>
 
     <script type="text/javascript" src="cordova.js"></script>
@@ -292,11 +281,19 @@
             //pop-ip handler
             idleTime = 0;
             jQuerylimit = 5;
-            if (localStorage.getItem("pop_status") !== '1') {
+            if (localStorage.getItem("pop_status") !== '123') {
               localStorage.setItem("pop_status", "1");
-              alert(localStorage.getItem("pop_status"));
               $('.subs-popup').show();
             }
+            $( "#mc_embed_signup" ).click(function() {
+                event.stopPropagation();
+              });
+              $('.email-close').click(function() {
+                $('.subs-popup').hide();
+              });
+              $('.subs-popup').click(function() {
+                $(this).hide();
+              });
         }
 
         init();
