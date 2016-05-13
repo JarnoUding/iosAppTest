@@ -25,7 +25,7 @@
     <meta charset="utf-8" />
     <meta name="format-detection" content="telephone=no" />
     <meta name="msapplication-tap-highlight" content="no" />
-    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
     <!-- This is a wide open CSP declaration. To lock this down for production, see below. -->
     <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *" />
     <!-- Good default declaration:
@@ -39,19 +39,65 @@
     <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: 'unsafe-inline' https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *" /> -->
 
     <link rel="stylesheet" type="text/css" href="css/index.css" />
-    <title>Hello World</title>
+    <title>Nightlife Party agenda</title>
 </head>
 
-<body>
-    <div class="app">
-        <h1>PhoneGap</h1>
-        <div id="deviceready" class="blink">
-            <p class="event listening">Connecting to Device</p>
-            <p class="event received">Device is Ready</p>
+<body class="front">
+    
+    <div class="container front-container screen-container">
+        <div class="col-xs-12">
+            <div class="banner" style="padding-top: 18px; width: 100%; background: url('img/party-banner.jpg'); background-size: cover;">
+                <img id="app-logo" alt="Nightlife party agenda" src="img/logo-app.png">
+            </div>
+            <div class="content screen-slider">
+                <div class="col-xs-12 mob-no-pad">
+                    <div class="col-xs-12 mob-no-pad m-b-h">
+                      <form id="search-form" action="search.html" method="GET">
+                        <div class="col-md-4 m-t-h"><input id="search-date" class="form-control datepicker" name="date" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder="datum"></div>
+                        <div class="col-md-6 m-t-h"><input id="search-title" class="form-control" name="title" type="text" placeholder="zoeken op titel"></div>
+                        <div class="col-md-2 m-t-h"><input class="btn btn-primary" id="search-btn" style="background: #723F88;" type="submit" value="zoeken"></div>
+                      </form>
+                    </div>
+                </div>
+                <?php // e983upktxkea/items/$id ?>
+
+                <div class="hightlights-top-container">
+                  <div class="loading-dark highlight-load"><img style="width: 24px; height: 24px;" src="img/loading-dark.gif"></div>
+                </div>
+                <div class="item-top-container">
+                  <div class="loading-light init-load"><img style="width: 24px; height: 24px;" src="img/loading-light.gif"></div>
+                </div>
+                
+                <div class="loading-light loadmore"><img style="width: 24px; height: 24px;" src="img/loading-light.gif"></div>
+
+            </div>
+            <footer>
+              <div class="col-sm-8 footer-left">
+                <p>uw advertentie ook hier?<br/><span>Mail naar <a href="mailto:info@nightlifepromotions.nl">info@nightlifepromotions.nl</a></span></p>
+              </div>
+              <div class="col-sm-4 footer-right">
+                <p class="powered-by">Powered by:</p>
+                <a onclick='openUrl("http://www.nightlifepromotions.nl/");' target="_BLANK">
+                  <img class="front-logo" src="img/logo.png"><Br/>
+                </a>
+              </div>
+              
+            </footer>
         </div>
     </div>
+
+    <style type="text/css">
+        .datepicker{
+            -webkit-appearance: none;
+           -moz-appearance:    none;
+           appearance:         none;
+            width: 100%;
+        }
+    </style>
+
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
+    <script type="text/javascript" src="js/js.cookie.js"></script>
     <script type="text/javascript">
         app.initialize();
     </script>
