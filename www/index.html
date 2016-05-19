@@ -156,7 +156,6 @@
           firstname = $('#mce-FNAME').val();
           lastname = $('#mce-LNAME').val();
           dob = $('#mce-MMERGE5').val();
-          if(email.length > 0 && firstname.length > 0 && lastname.length > 0 && dob.length > 0){
             $.ajax({
               type: 'GET',
               url: 'http://mediacompanion.nl/nlpa-subscr.php?email='+email+'&firstname='+firstname+'&lastname='+lastname+'&dob='+dob,
@@ -169,11 +168,7 @@
                 alert('There was an error adding your comment');
               }
             });  
-            return false;
-          }else{
-            $('.sub-error').show();
-            return false;
-          }            
+            return false;         
         }
 
         // load more content
