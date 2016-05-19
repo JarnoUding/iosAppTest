@@ -101,7 +101,7 @@
   <div id="mc_embed_signup">
     <div class="email-close">x</div>
     <div id="pop-bg">
-      <form action="#" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+      <form method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
       <div class="col-xs-12">
         <div id="mc_embed_signup_scroll">
           <p style="text-transform: none;">Schrijf je in voor de nieuwsbrief en blijf altijd op de hoogte van de leukste feesten bij jou in de buurt!</p>
@@ -151,24 +151,24 @@
     <script type="text/javascript">
         app.initialize();
 
-        function submitSubscribe(){
+        function submitSubscribe(event){
           email = $('#mce-EMAIL').val();
           firstname = $('#mce-FNAME').val();
           lastname = $('#mce-LNAME').val();
           dob = $('#mce-MMERGE5').val();
+          url = 'http://mediacompanion.nl/nlpa-subscr.php?email='+email+'&firstname='+firstname+'&lastname='+lastname+'&dob='+dob;
+          alert(url);
             $.ajax({
               type: 'GET',
-              url: 'http://mediacompanion.nl/nlpa-subscr.php?email='+email+'&firstname='+firstname+'&lastname='+lastname+'&dob='+dob,
+              url: url,
               success: function(data){
-                console.log(data);
-                alert('Your comment was successfully added');
-              },
-              error: function(){
-                console.log(data);
-                alert('There was an error adding your comment');
+                $('.subs-popup').hide();
+                alert(data);
               }
-            });  
-            return false;         
+            });
+            event.preventDefault();  
+            return false; 
+                 
         }
 
         // load more content
