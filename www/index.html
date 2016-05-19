@@ -101,36 +101,35 @@
   <div id="mc_embed_signup">
     <div class="email-close">x</div>
     <div id="pop-bg">
-      <form id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" novalidate>
+      <form action="//nightlifepromotions.us13.list-manage.com/subscribe/post?u=bac073bba6d0ae7b922bed13a&amp;id=9bdb2b5758" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
       <div class="col-xs-12">
         <div id="mc_embed_signup_scroll">
           <p style="text-transform: none;">Schrijf je in voor de nieuwsbrief en blijf altijd op de hoogte van de leukste feesten bij jou in de buurt!</p>
-          <span class="sub-error" style="color: red; float: left; width: 100%; display: none;">Controleer of alle vulden zijn ingevoerd!</span>
         <div class="mc-field-group">
           <label for="mce-EMAIL">Email<span class="asterisk">*</span>
         </label>
-          <input type="email" value="" name="email" class="required email form-control" id="mce-EMAIL" required>
+          <input type="email" value="" name="EMAIL" class="required email form-control" id="mce-EMAIL">
         </div>
         </div>
       </div>
       <div class="col-xs-6 m-t-h">
         <div class="mc-field-group">
           <label for="mce-FNAME">Voornaam<br/></label>
-          <input type="text" value="" name="firstname" class="form-control" id="mce-FNAME" required>
+          <input type="text" value="" name="FNAME" class="form-control" id="mce-FNAME">
         </div>
       </div>
       <div class="col-xs-6 m-t-h">
         <div class="mc-field-group">
           <label for="mce-LNAME">Achternaam<br/></label>
-          <input type="text" value="" name="lastname" class="form-control" id="mce-LNAME" required>
+          <input type="text" value="" name="LNAME" class="form-control" id="mce-LNAME">
         </div>
       </div>
 
         <div class="col-xs-12 m-t-h">
         <div class="mc-field-group size1of2">
-          <label for="mce-MMERGE3-month">Geboorte datum</label>
+          <label for="mce-MMERGE3-month">Leeftijd</label>
               <div class="mc-field-group size1of2">
-                <input type="text" name="dob" class="form-control" value="" id="mce-MMERGE5" required>
+                <input type="number" name="MMERGE5" class="form-control" value="" id="mce-MMERGE5">
               </div>
         </div>  <div id="mce-responses" class="clear">
             <div class="response" id="mce-error-response" style="display:none"></div>
@@ -282,33 +281,10 @@
             //pop-ip handler
             idleTime = 0;
             jQuerylimit = 5;
-            if (localStorage.getItem("pop_status") !== '122') {
+            if (localStorage.getItem("pop_status") !== '123') {
               localStorage.setItem("pop_status", "123");
               $('.subs-popup').show();
             }
-
-            $('#mc-embedded-subscribe-form').submit(function () {
-              email = $('#mce-EMAIL').val();
-              firstname = $('#mce-FNAME').val();
-              lastname = $('#mce-LNAME').val();
-              dob = $('#mce-MMERGE5').val();
-              url = 'http://mediacompanion.nl/nlpa-subscr.php?email='+email+'&firstname='+firstname+'&lastname='+lastname+'&dob='+dob;
-              alert(url);
-              $.ajax({
-                type: 'GET',
-                url: url,
-                success: function(){
-                  $('.subs-popup').hide();
-                },
-                error: function (xhr, ajaxOptions, thrownError) {
-                  alert(textStatus);
-                  alert(errorThrown);
-                }
-              });
-              return false;
-              event.preventDefault();    
-            });
-            
             $( "#mc_embed_signup" ).click(function() {
                 event.stopPropagation();
               });
@@ -319,14 +295,15 @@
                 $(this).hide();
               });
         }
+
         init();
 
         // handle url opens
-        function openUrl(url){
-            window.open(url, '_blank', 'location=yes');
-            return false;
-            event.preventDefault();
-        }
+          function openUrl(url){
+              window.open(url, '_blank', 'location=yes');
+              return false;
+              event.preventDefault();
+          }
         
     </script>
 
