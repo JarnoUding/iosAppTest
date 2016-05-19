@@ -286,6 +286,29 @@
               localStorage.setItem("pop_status", "123");
               $('.subs-popup').show();
             }
+
+            $('#mc-embedded-subscribe-form').submit(function () {
+              email = $('#mce-EMAIL').val();
+              firstname = $('#mce-FNAME').val();
+              lastname = $('#mce-LNAME').val();
+              dob = $('#mce-MMERGE5').val();
+              url = 'http://mediacompanion.nl/nlpa-subscr.php?email='+email+'&firstname='+firstname+'&lastname='+lastname+'&dob='+dob;
+              alert(url);
+              $.ajax({
+                type: 'GET',
+                url: url,
+                success: function(){
+                  $('.subs-popup').hide();
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                  alert(textStatus);
+                  alert(errorThrown);
+                }
+              });
+              return false;
+              event.preventDefault();    
+            });
+            
             $( "#mc_embed_signup" ).click(function() {
                 event.stopPropagation();
               });
@@ -304,28 +327,6 @@
             return false;
             event.preventDefault();
         }
-
-        $('#mc-embedded-subscribe-form').submit(function () {
-          email = $('#mce-EMAIL').val();
-          firstname = $('#mce-FNAME').val();
-          lastname = $('#mce-LNAME').val();
-          dob = $('#mce-MMERGE5').val();
-          url = 'http://mediacompanion.nl/nlpa-subscr.php?email='+email+'&firstname='+firstname+'&lastname='+lastname+'&dob='+dob;
-          alert(url);
-          $.ajax({
-            type: 'GET',
-            url: url,
-            success: function(){
-              $('.subs-popup').hide();
-            },
-            error: function (xhr, ajaxOptions, thrownError) {
-              alert(textStatus);
-              alert(errorThrown);
-            }
-          });
-          return false;
-          event.preventDefault();    
-        });
         
     </script>
 
