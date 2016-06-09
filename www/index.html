@@ -45,21 +45,12 @@
 <body class="front">
     
     <div class="container front-container screen-container">
-        <div class="col-xs-12">
-            <div class="banner" style="padding-top: 18px; width: 100%; background: url('img/party-banner.jpg'); background-size: cover;">
-                <img id="app-logo" alt="Nightlife party agenda" src="img/logo-app.png">
-            </div>
-            <div class="content screen-slider">
-                <div class="search-container">
-                  <div class="col-xs-12 search-inner fixed mob-no-pad">
-                      <div class="col-xs-12 mob-no-pad m-b-h">
-                        <form id="search-form" action="search.html" method="GET">
-                          <div class="col-xs-4 m-t-h" style="padding: 0 6px;"><input id="search-date" class="form-control datepicker" name="date" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder="datum"></div>
-                          <div class="col-xs-5 m-t-h" style="padding: 0 6px;"><input id="search-title" class="form-control" name="title" type="text" placeholder="titel"></div>
-                          <div class="col-xs-3 m-t-h" style="padding: 0 6px;"><input class="btn btn-primary" id="search-btn" style="background: #723F88; width: 100%;" type="submit" value="zoek"></div>
-                        </form>
-                      </div>
-                  </div>
+        <div class="col-xs-12" style="padding-top: 144px;">
+            <div class="fixed" style="border-bottom: 1px solid #dedede;">
+              <div class="banner" style="padding-top: 18px; width: 100%; background: url('img/party-banner.jpg'); background-size: cover;">
+                  <img id="app-logo" alt="Nightlife party agenda" src="img/logo-app.png">
+              </div>
+              <div class="search-container">
                   <div class="col-xs-12 search-inner mob-no-pad">
                       <div class="col-xs-12 mob-no-pad m-b-h">
                         <form id="search-form" action="search.html" method="GET">
@@ -70,6 +61,8 @@
                       </div>
                   </div>
                 </div>
+            </div>
+            <div class="content screen-slider">
                 <?php // e983upktxkea/items/$id ?>
 
                 <div class="hightlights-top-container">
@@ -108,7 +101,7 @@
           position: relative;
           z-index: 99999;
         }
-        .search-container{
+        .fixed-container{
           height: 58px;
           position: relative;
           z-index: 9999;
