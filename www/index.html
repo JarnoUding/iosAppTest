@@ -115,6 +115,16 @@
           z-index: 9999;
           width: 100%;
         }
+        #search-date{
+          font-size: 10px;
+        }
+        #search-title{
+          font-size: 10px;
+        }
+        #search-btn{
+          font-size: 10px;
+          padding: 9px;
+        }
     </style>
 
 <div class="subs-popup" style="display:none;">
@@ -348,9 +358,21 @@
                 $(this).hide();
               });
 
+              
 
         }
         init();
+
+        $(document).on('focus', 'input, textarea', function() {
+          setTimeout(function() {
+            window.scrollTo(document.body.scrollLeft, document.body.scrollTop);
+          }, 0);
+        });
+        $(document).on('blur', 'input, textarea', function() {
+            setTimeout(function() {
+                window.scrollTo(document.body.scrollLeft, document.body.scrollTop);
+            }, 0);
+        });
 
         // handle url opens
         function openUrl(url){
