@@ -232,9 +232,16 @@
                 $( ".hightlights-top-container" ).append( "<h2 class='highlights-title'>Highlight<span>s</span>:</h2><div class='highlight-container row highlight' style='margin-bottom: 12px;'></div>" );
                 // append highlight item
                 $.each( data, function( key, val ) {
-                  $(".highlight-container").append("<div class='highlight-slide'><div class='slide-inner'><div class='col-xs-12'><div class='datetime'><p class='date'>"+val.date+"</p></div></div><div class='col-xs-3'><img class='event-image' alt='"+val.name+"' src='http://nightlifepartyagenda.nl/images/events/"+val.image+"'></div><div class='col-xs-9 no-p-l'><p class='title'>"+val.name+"</p><p class='subtitle'>"+val.subtitle+"</p><div class='line-up'><strong>Line up:</strong><br/>"+val.line_up+"</div><a class='read-more' style='display:none;' href='#'>Lees meer</a><p class='location'><strong>Location: </strong><span>"+val.location+"</span></p><div class='links pull-right'><a class='link-btn' onclick='openUrl(\""+val.link+"\");'>Website</a><a class='link-btn m-l-h' onclick='openUrl(\""+val.ticket+"\");'>Tickets</a></div></div></div></div>");
+                  $(".highlight-container").append("<div class='highlight-slide'><div class='slide-inner'><div class='col-xs-12'><div class='datetime'><p class='date'>"+val.date+"</p></div></div><div class='col-xs-3'><img class='event-image' alt='"+val.name+"' src='http://nightlifepartyagenda.nl/images/events/"+val.image+"'></div><div class='col-xs-9 no-p-l'><p class='title'>"+val.name+"</p><p class='subtitle'>"+val.subtitle+"</p><div class='line-up'><strong>Line up:</strong><br/>"+val.line_up+"</div><a class='read-more' style='display:none;' href='#'>Lees meer</a><p class='location'><strong>Location: </strong><span>"+val.location+"</span></p><div class='links pull-right' id='link-container-highlight-\""+val.id+"\"'></div></div></div></div>");
 
-                    
+                    if(val.link !== null  && val.link !== ""){
+                      $("#link-container-highlight-"+val.id).append("<a class='link-btn' target='_BLANK' onclick='openUrl(\""+val.link+"\");'>Website</a>");
+                    }
+                    if(val.ticket !== null  && val.ticket !== ""){
+                      $("#link-container-highlight-"+val.id).append("<a class='link-btn m-l-h' target='_BLANK' onclick='openUrl(\""+val.ticket+"\");'>Tickets</a>");
+                    }
+
+                    // <a class='link-btn' onclick='openUrl(\""+val.link+"\");'>Website</a><a class='link-btn m-l-h' onclick='openUrl(\""+val.ticket+"\");'>Tickets</a>
 
                 });
                 // init highlights slider
