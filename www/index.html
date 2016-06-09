@@ -51,6 +51,15 @@
             </div>
             <div class="content screen-slider">
                 <div class="search-container">
+                  <div class="col-xs-12 search-inner fixed mob-no-pad">
+                      <div class="col-xs-12 mob-no-pad m-b-h">
+                        <form id="search-form" action="search.html" method="GET">
+                          <div class="col-xs-4 m-t-h" style="padding: 0 6px;"><input id="search-date" class="form-control datepicker" name="date" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder="datum"></div>
+                          <div class="col-xs-5 m-t-h" style="padding: 0 6px;"><input id="search-title" class="form-control" name="title" type="text" placeholder="titel"></div>
+                          <div class="col-xs-3 m-t-h" style="padding: 0 6px;"><input class="btn btn-primary" id="search-btn" style="background: #723F88; width: 100%;" type="submit" value="zoek"></div>
+                        </form>
+                      </div>
+                  </div>
                   <div class="col-xs-12 search-inner mob-no-pad">
                       <div class="col-xs-12 mob-no-pad m-b-h">
                         <form id="search-form" action="search.html" method="GET">
@@ -94,6 +103,10 @@
            -moz-appearance:    none;
            appearance:         none;
             width: 100%;
+        }
+        .banner{
+          position: relative;
+          z-index: 99999;
         }
         .search-container{
           height: 58px;
@@ -332,28 +345,6 @@
               $('.subs-popup').click(function() {
                 $(this).hide();
               });
-
-              $(window).scroll(function(){
-                scrollTop = $(window).scrollTop();
-                topHeight = $('.banner').height() + 18;
-                console.log("H="+topHeight+" -> scroll="+scrollTop);
-                if(scrollTop >= topHeight){
-                  $('.search-inner').addClass('fixed');
-                }else{
-                  $('.search-inner').removeClass('fixed');
-                }
-              });
-
-              setInterval(function() {
-                scrollTop = $(window).scrollTop();
-                topHeight = $('.banner').height() + 18;
-                console.log("H="+topHeight+" -> scroll="+scrollTop);
-                if(scrollTop >= topHeight){
-                  $('.search-inner').addClass('fixed');
-                }else{
-                  $('.search-inner').removeClass('fixed');
-                }
-              }, 20);
 
 
         }
