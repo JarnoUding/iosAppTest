@@ -50,14 +50,16 @@
                 <img id="app-logo" alt="Nightlife party agenda" src="img/logo-app.png">
             </div>
             <div class="content screen-slider">
-                <div class="col-xs-12 mob-no-pad">
-                    <div class="col-xs-12 mob-no-pad m-b-h">
-                      <form id="search-form" action="search.html" method="GET">
-                        <div class="col-md-4 m-t-h"><input id="search-date" class="form-control datepicker" name="date" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder="datum"></div>
-                        <div class="col-md-6 m-t-h"><input id="search-title" class="form-control" name="title" type="text" placeholder="zoeken op titel"></div>
-                        <div class="col-md-2 m-t-h"><input class="btn btn-primary" id="search-btn" style="background: #723F88;" type="submit" value="zoeken"></div>
-                      </form>
-                    </div>
+                <div class="search-container">
+                  <div class="col-xs-12 search-inner mob-no-pad">
+                      <div class="col-xs-12 mob-no-pad m-b-h">
+                        <form id="search-form" action="search.html" method="GET">
+                          <div class="col-xs-4 m-t-h" style="padding: 0 6px;"><input id="search-date" class="form-control datepicker" name="date" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder="datum"></div>
+                          <div class="col-xs-5 m-t-h" style="padding: 0 6px;"><input id="search-title" class="form-control" name="title" type="text" placeholder="titel"></div>
+                          <div class="col-xs-3 m-t-h" style="padding: 0 6px;"><input class="btn btn-primary" id="search-btn" style="background: #723F88; width: 100%;" type="submit" value="zoek"></div>
+                        </form>
+                      </div>
+                  </div>
                 </div>
                 <?php // e983upktxkea/items/$id ?>
 
@@ -93,6 +95,15 @@
            appearance:         none;
             width: 100%;
         }
+        .search-container{
+          height: 58px;
+        }
+        .fixed{
+          position: fixed;
+          top: 0;
+          background: #fff;
+          border-bottom: 1px solid #ccc;
+        }
     </style>
 
 <div class="subs-popup" style="display:none;">
@@ -104,7 +115,7 @@
       <form id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" novalidate>
       <div class="col-xs-12">
         <div id="mc_embed_signup_scroll">
-          <p style="text-transform: none;">Schrijf je in voor de nieuwsbrief en blijf altijd op de hoogte van de leukste feesten bij jou in de buurt!</p>
+          <p style="text-transform: none;">Schrijf je nu in voor de nieuwsbrief en maak kans op tickets voor de beste events en festivals deze zomer!</p>
           <span class="sub-error" style="color: red; float: left; width: 100%; display: none;">Controleer of alle vulden zijn ingevoerd!</span>
         <div class="mc-field-group">
           <label for="mce-EMAIL">Email<span class="asterisk">*</span>
@@ -256,18 +267,22 @@
 
             // fix date format
             $('#search-date').on('blur', function() {
-              val =  $('#search-date').val();
-              val = val.split("-");
-              val = val[2]+"-"+val[1]+"-"+val[0];
-              $('#search-date').val(val);
+                val =  $('#search-date').val();
+              if(val){
+                val = val.split("-");
+                val = val[2]+"-"+val[1]+"-"+val[0];
+                $('#search-date').val(val);
+              }
             });
 
             // submit fix date format
             $( "#search-form" ).submit(function( event ) {
               val =  $('#search-date').val();
-              val = val.split("-");
-              val = val[2]+"-"+val[1]+"-"+val[0];
-              $('#search-date').val(val);
+              if(val){
+                val = val.split("-");
+                val = val[2]+"-"+val[1]+"-"+val[0];
+                $('#search-date').val(val);
+              }
             });
             // handle search button
             $( "#search-btn" ).click(function() {
@@ -314,6 +329,19 @@
               $('.subs-popup').click(function() {
                 $(this).hide();
               });
+
+              $(window).scroll(function(){
+                scrollTop = $(window).scrollTop();
+                topHeight = $('.banner').height() + 18;
+                console.log("H="+topHeight+" -> scroll="+scrollTop);
+                if(scrollTop >= topHeight){
+                  $('.search-inner').addClass('fixed');
+                }else{
+                  $('.search-inner').removeClass('fixed');
+                }
+              })
+
+
         }
         init();
 
