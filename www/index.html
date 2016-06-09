@@ -97,12 +97,15 @@
         }
         .search-container{
           height: 58px;
+          position: relative;
+          z-index: 9999;
         }
         .fixed{
           position: fixed;
           top: 0;
           background: #fff;
           border-bottom: 1px solid #ccc;
+          z-index: 9999;
         }
     </style>
 
@@ -339,7 +342,18 @@
                 }else{
                   $('.search-inner').removeClass('fixed');
                 }
-              })
+              });
+
+              setInterval(function() {
+                scrollTop = $(window).scrollTop();
+                topHeight = $('.banner').height() + 18;
+                console.log("H="+topHeight+" -> scroll="+scrollTop);
+                if(scrollTop >= topHeight){
+                  $('.search-inner').addClass('fixed');
+                }else{
+                  $('.search-inner').removeClass('fixed');
+                }
+              }, 20);
 
 
         }
