@@ -175,7 +175,46 @@
       .col-xs-3 img{
         width: 100% !important;
       }
-      .item-top-container{ background: #fff;}
+      .item-top-container{ background: #fff; float: left; width: 100%; }
+      .highlights-title{ margin: 0; background: #fff; }
+
+      .date{
+        background: #000;
+          color: #fff;
+          padding: 3px 6px 2px;
+          float: left;
+          font-size: 18px;
+          text-transform: uppercase;
+          margin: 0;
+      }
+      .datetime{
+        border-bottom: 1px solid #000;
+        float: left;
+        width: 100%;
+        margin-bottom: 12px;
+      }
+
+      .slide-inner .datetime{
+        float: left;
+        width: 100%;
+        margin-bottom: 12px;
+      }
+      
+      .slide-inner .date {
+          background: #000;
+          color: #fff;
+          padding: 3px 6px 2px;
+          float: left;
+          font-size: 18px !important;
+          text-transform: uppercase;
+      }
+      .front-container>div .row {
+    padding: 12px 0 0!important;
+}
+.screen-container{
+  float: left;
+  width: 100%;
+}
     </style>
 
 <div class="subs-popup" style="display:none;">
@@ -240,10 +279,11 @@
         var readclick = 0;
         var offset = 10;
         function loadMore(){
-            if($(window).scrollTop() + $(window).height() > $(document).height()  - 50 && loadable==0) {
+            if($('.content').scrollTop()  > ($('.screen-container').height() - 500) && loadable==0) {
                 loadable = 1;
                 $.ajax({
                   url: 'http://nightlifepartyagenda.nl/e983upktxkea/items/'+offset,
+                  //url: 'http://mediacompanion.nl/nlpa-mailer/content-test/highlights.php',
                   type: 'GET',
                   dataType: "JSON",
                   success: function (data) {
@@ -280,6 +320,7 @@
         function init(){
             // HIGHLIGHTS
             $.getJSON( "http://nightlifepartyagenda.nl/e983upktxkea/highlights", function( data ) {
+            //$.getJSON( "http://mediacompanion.nl/nlpa-mailer/content-test/highlights.php", function( data ) {
               if(data.length > 0){
 
                 $('.highlight-load').hide();
@@ -329,7 +370,8 @@
             });
             // INIT ITEMS (20)
             var itemcounter = 0;
-            $.getJSON( "http://nightlifepartyagenda.nl/e983upktxkea/items/0", function( data ) {
+              $.getJSON( "http://nightlifepartyagenda.nl/e983upktxkea/items/0", function( data ) {
+              //$.getJSON( "http://mediacompanion.nl/nlpa-mailer/content-test/highlights.php", function( data ) {
               if(data.length > 0){
                 $.each( data, function( key, val ) {
                   $(".item-top-container").append("<div class='row base-row row-"+val.id+"'><div class='col-xs-12'><div class='datetime'><p class='date'>"+val.date+"</p></div></div><div class='col-xs-3 col-sm-3 col-md-3 col-lg-3'><img class='event-image' id='event-"+val.id+"' alt='"+val.name+"' src='http://nightlifepartyagenda.nl/images/events/"+val.image+"'></div><div class='col-xs-9 col-sm-9 col-md-9 col-lg-9 no-p-l'><p class='title'>"+val.name+"</p><p class='subtitle'>"+val.subtitle+"</p><div class='line-up' id='colorlineup-"+val.id+"'><strong style='color: rgb("+val.colour+")'>Line up:</strong><br/>"+val.line_up+"</div><a class='read-more' style='display:none;' href='#'>Lees meer</a><p class='location' id='colorlocation-"+val.id+"'><strong style='color: rgb("+val.colour+")'>Location: </strong><span>"+val.location+"</span></p><div class='links pull-right' id='link-container-"+val.id+"'></div></div></div>");
@@ -371,8 +413,9 @@
                 }
             });
             // handle load more content
-            $(window).scroll(function() {
+            $('.content').scroll(function() {
                 loadMore();
+
             });
             //pop-ip handler
             idleTime = 0;
