@@ -219,6 +219,12 @@
 .content .row .links{
   margin-bottom: 0;
 }
+.front-container>div .row {
+    padding: 12px 0 0 0!important;
+    }
+    footer{
+      margin-top: 12px;
+    }
     </style>
 
 <div class="subs-popup" style="display:none;">
@@ -437,7 +443,7 @@
               lastname = $('#mce-LNAME').val();
               dob = $('#mce-MMERGE5').val();
               url = 'http://mediacompanion.nl/nlpa-subscr.php?email='+email+'&firstname='+firstname+'&lastname='+lastname+'&dob='+dob;
-              alert('U bent ingeschreven.');
+              navigator.notification.alert("U bent ingeschreven.", null, "Nightlife partyagenda", "Ok");
               $.ajax({
                 type: 'GET',
                 url: url,
