@@ -432,7 +432,7 @@
             //pop-ip handler
             idleTime = 0;
             jQuerylimit = 5;
-            if (localStorage.getItem("pop_status") !== '1233a') {
+            if (localStorage.getItem("pop_status") !== '1233') {
               localStorage.setItem("pop_status", "1233");
               $('.subs-popup').show();
             }
@@ -443,9 +443,7 @@
               lastname = $('#mce-LNAME').val();
               dob = $('#mce-MMERGE5').val();
               url = 'http://mediacompanion.nl/nlpa-subscr.php?email='+email+'&firstname='+firstname+'&lastname='+lastname+'&dob='+dob;
-              navigator.notification.alert("U bent ingeschreven.", null, "Nightlife partyagenda", "Ok");
               navigator.notification.alert("U bent ingeschreven.",function(){}, "Nightlife partyagenda");
-              alert("U bent ingeschreven.");
               $.ajax({
                 type: 'GET',
                 url: url,
