@@ -294,8 +294,8 @@
                 loadable = 1;
 
                 $.ajax({
-                  url: 'http://nightlifepartyagenda.nl/e983upktxkea/items/'+offset,
-                  //url: 'http://mediacompanion.nl/nlpa-mailer/content-test/highlights.php',
+                  //url: 'http://nightlifepartyagenda.nl/e983upktxkea/items/'+offset,
+                  url: 'http://mediacompanion.nl/nlpa-mailer/content-test/highlights.php',
                   type: 'GET',
                   dataType: "JSON",
                   success: function (data) {
@@ -432,7 +432,7 @@
             //pop-ip handler
             idleTime = 0;
             jQuerylimit = 5;
-            if (localStorage.getItem("pop_status") !== '1233') {
+            if (localStorage.getItem("pop_status") !== '1233a') {
               localStorage.setItem("pop_status", "1233");
               $('.subs-popup').show();
             }
@@ -447,7 +447,7 @@
               $.ajax({
                 type: 'GET',
                 url: url,
-                success: function(){
+                success: function(data){
                   $('.subs-popup').hide();
                 }
               });
