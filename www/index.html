@@ -69,8 +69,9 @@
 
                 <div class="hightlights-top-container">
                   <div class="loading-dark highlight-load"><img style="width: 24px; height: 24px;" src="img/loading-dark.gif"></div>
+                  <a class="ook-adverteren" href="mailto:info@nightlifepromotions.nl">Wilt u hier ook adverteren?</a>
                 </div>
-                <div class="item-top-container">
+                <div class="item-top-container" style="padding-top: 12px;">
                   <div class="loading-light init-load"><img style="width: 24px; height: 24px;" src="img/loading-light.gif"></div>
                 </div>
                 
@@ -173,6 +174,11 @@
         margin-left: 0 !important;
         margin-right: 0 !important;
       }
+      .hightlights-top-container{
+        float: left;
+        width: 100%;
+        position: relative;
+      }
       .col-xs-3 img{
         width: 100% !important;
       }
@@ -209,9 +215,7 @@
           font-size: 18px !important;
           text-transform: uppercase;
       }
-      .front-container>div .row {
-    padding: 12px 0 0!important;
-}
+
 .screen-container{
   float: left;
   width: 100%;
@@ -220,10 +224,59 @@
   margin-bottom: 0;
 }
 .front-container>div .row {
-    padding: 12px 0 0 0!important;
+    padding: 0 0 0 0!important;
     }
     footer{
       margin-top: 12px;
+    }
+    .highlights-title{
+      z-index: 99;
+      position: relative;
+      float: left;
+    }
+    .hightlights-top-container button{
+      float: right;
+      width: 40%;
+      background: #fff;
+      border:none;
+      /* background: #000;
+      padding: 6px 10px;
+      margin: 1px;
+      color: #fff;
+      position: relative;
+      z-index: 99;
+      font-size: 8px;
+      border: 0;
+      text-transform: uppercase;
+      border-radius: 6px !important; */
+    }
+    .hightlights-top-container button img{
+          width: 100%;
+      max-width: 150px;
+      float: right;
+    }
+    .hightlights-top-container button span{
+      font-size: 10.5px;
+    }
+    .highlight-title-container{
+      float: left;
+      width: 100%;
+      position: relative;
+      z-index: 99;
+      background: #fff;
+    }
+    @media (max-width: 350px) {
+      .hightlights-top-container button{
+        padding-top: 6px;
+      }
+    }
+    .ook-adverteren{
+      position: absolute;
+      bottom: 6px;
+      left: 12px;
+      color: #fff;
+      font-size: 8px;
+      z-index: 99;
     }
     </style>
 
@@ -281,6 +334,7 @@
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
     <script type="text/javascript" src="js/js.cookie.js"></script>
+    <script type="text/javascript" src="js/jquery.nicescroll.min.js"></script>
     <script type="text/javascript">
         app.initialize();
 
@@ -290,7 +344,7 @@
         var offset = 10;
         function loadMore(){     
 
-            if($('.content').scrollTop()  > ($('.screen-container').height() - 500) && loadable==0) {
+            if($('.content').scrollTop()  > ($('.screen-container').height() - 800) && loadable==0) {
                 loadable = 1;
 
                 $.ajax({
@@ -330,6 +384,9 @@
 
         // init get content
         function init(){
+
+          $(".content").niceScroll();
+
             // HIGHLIGHTS
             //$.getJSON( "http://nightlifepartyagenda.nl/e983upktxkea/highlights", function( data ) {
             $.getJSON( "http://mediacompanion.nl/nlpa-mailer/content-test/highlights.php", function( data ) {
@@ -339,7 +396,7 @@
                   $('.init-load').hide();
 
                 // make highlight top container
-                $( ".hightlights-top-container" ).append( "<h2 class='highlights-title'>Highlight<span>s</span>:</h2><div class='highlight-container row highlight' style='margin-bottom: 12px;'></div>" );
+                $( ".hightlights-top-container" ).append( "<div class='highlight-title-container'><h2 class='highlights-title'>Highlight<span>s</span>:</h2><button id='pop-btn'><img src='img/btn.png'/></button></div><div class='highlight-container row highlight' style='margin-bottom: 0px !important; margin-top: 0px !important; padding: 0 !important;float: left;width: 100% !important;'></div>" );
                 // append highlight item
                 $.each( data, function( key, val ) {
                   $(".highlight-container").append("<div class='highlight-slide'><div class='slide-inner'><div class='col-xs-12'><div class='datetime'><p class='date'>"+val.date+"</p></div></div><div class='col-xs-3 col-sm-3 col-md-3 col-lg-3'><img class='event-image' alt='"+val.name+"' src='http://nightlifepartyagenda.nl/images/events/"+val.image+"'></div><div class='col-xs-9 col-sm-9 col-md-9 col-lg-9 no-p-l'><p class='title'>"+val.name+"</p><p class='subtitle'>"+val.subtitle+"</p><div class='line-up'><strong>Line up:</strong><br/>"+val.line_up+"</div><a class='read-more' style='display:none;' href='#'>Lees meer</a><p class='location'><strong>Location: </strong><span>"+val.location+"</span></p><div class='links pull-right' id='link-container-highlight-"+val.id+"'></div></div></div></div>");
@@ -456,15 +513,17 @@
             });
             
             $( "#mc_embed_signup" ).click(function() {
-                event.stopPropagation();
-              });
-              $('.email-close').click(function() {
-                $('.subs-popup').hide();
-              });
-              $('.subs-popup').click(function() {
-                $(this).hide();
-              });
-
+              event.stopPropagation();
+            });
+            $('.email-close').click(function() {
+              $('.subs-popup').hide();
+            });
+            $('.subs-popup').click(function() {
+              $(this).hide();
+            });
+            $( "#pop-btn" ).click(function() {
+              $('.subs-popup').show();
+            });
               
 
         }
