@@ -44,7 +44,7 @@
 
 <body class="front">
   <div class="header" style="border-bottom: 1px solid #dedede;">
-    <div class="banner" style="padding-top: 18px; width: 100%; background: url('img/party-banner.jpg'); background-size: cover;">
+    <div class="banner" style="padding-top: 18px; width: 100%; background: url('http://nightlifepartyagenda.nl/images/banners/banner.jpg'); background-size: cover;">
         <img id="app-logo" alt="Nightlife party agenda" src="img/logo-app.png">
     </div>
     <div class="search-container">
@@ -155,14 +155,15 @@
         var loadable = 0;
         var readclick = 0;
         var offset = 10;
+        var loadtype = 0;
+        var excludeIdsAd = "0";
+        var excludeIdsHighlight = "0";
         function loadMore(){     
-
-            if($('.content').scrollTop()  > ($('.screen-container').height() - 800) && loadable==0) {
                 loadable = 1;
 
                 $.ajax({
-                  //url: 'http://nightlifepartyagenda.nl/e983upktxkea/items/'+offset,
-                  url: 'http://mediacompanion.nl/nlpa-mailer/content-test/highlights.php',
+                  url: 'http://nightlifepartyagenda.nl/e983upktxkea/items/'+offset,
+                  //url: 'http://mediacompanion.nl/nlpa-mailer/content-test/highlights.php',
                   type: 'GET',
                   dataType: "JSON",
                   success: function (data) {
@@ -191,16 +192,84 @@
                   }
               });
               return false;
+
+            
+        }
+        function loadAd(){     
+
+            if($('.content').scrollTop()  > ($('.screen-container').height() - 800) && loadable==0) {
+                loadable = 1;
+
+                $.ajax({
+                  url: 'http://nightlifepartyagenda.nl/e983upktxkea/ad/'+excludeIdsAd,
+                  //url: 'http://mediacompanion.nl/nlpa-mailer/content-test/adsingle.php',
+                  type: 'GET',
+                  dataType: "JSON",
+                  success: function (data) {
+                      
+                    if( !$.isArray(data) ||  !data.length ) {
+                        $('.loadmore').hide();
+                      }
+
+                      if(data !== 0){
+                        $.each( data, function( key, val ) {
+                          $(".item-top-container").append("<a target='_blank' class='com-image' href='"+val.link+"'><img src='http://nightlifepartyagenda.nl/images/ads/"+val.image+"' alt='"+val.name+"'></a>");
+                          excludeIdsAd = excludeIdsAd+"-"+val.id;
+                        });
+
+                      }
+
+                      loadable = 0;
+                  }
+              });
+              return false;
              }
             
         }
+        function loadHighlight(){
+                loadable = 1;
+
+                $.ajax({
+                  url: 'http://nightlifepartyagenda.nl/e983upktxkea/highlight/'+excludeIdsHighlight,
+                  //url: 'http://mediacompanion.nl/nlpa-mailer/content-test/highlightsingle.php',
+                  type: 'GET',
+                  dataType: "JSON",
+                  success: function (data) {
+                      
+                    if( !$.isArray(data) ||  !data.length ) {
+                        $('.loadmore').hide();
+                      }
+
+                      $.each( data, function( key, val ) {
+                        $(".item-top-container").append("<div class='row highlight base-row row-"+val.id+"'><div class='col-xs-12'><div class='datetime'><p class='date'>"+val.date+"</p></div></div><div class='col-xs-3 col-sm-3 col-md-3 col-lg-3'><img class='event-image' id='event-"+val.id+"' alt='"+val.name+"' src='http://nightlifepartyagenda.nl/images/events/"+val.image+"'></div><div class='col-xs-9 col-sm-9 col-md-9 col-lg-9 no-p-l'><p class='title'>AAAABB"+val.name+"</p><p class='subtitle'>"+val.subtitle+"</p><div class='line-up' id='colorlineup-"+val.id+"'><strong style='color: rgb("+val.colour+")'>Line up:</strong><br/>"+val.line_up+"</div><a class='read-more' style='display:none;' href='#'>Lees meer</a><p class='location' id='colorlocation-"+val.id+"'><strong style='color: rgb("+val.colour+")'>Location: </strong><span>"+val.location+"</span></p><div class='links pull-right' id='link-container-highlight-"+val.id+"'></div></div></div>");
+
+                        if(val.link !== null  && val.link !== ""){
+                          $("#link-container-highlight-"+val.id).append("<a class='link-btn' target='_BLANK' onclick='openUrl(\""+val.link+"\");'>Website</a>");
+                        }
+                        if(val.ticket !== null  && val.ticket !== ""){
+                          $("#link-container-highlight-"+val.id).append("<a class='link-btn m-l-h' target='_BLANK' onclick='openUrl(\""+val.ticket+"\");'>Tickets</a>");
+                        }
+
+                        excludeIdsHighlight = excludeIdsHighlight+"-"+val.id;
+
+                      });
+
+                      loadable = 0;
+
+                  }
+              });
+              return false;
+
+            
+        }
+
 
         // init get content
         function init(){
 
             // HIGHLIGHTS
-            //$.getJSON( "http://nightlifepartyagenda.nl/e983upktxkea/highlights", function( data ) {
-            $.getJSON( "http://mediacompanion.nl/nlpa-mailer/content-test/highlights.php", function( data ) {
+            $.getJSON( "http://nightlifepartyagenda.nl/e983upktxkea/highlights", function( data ) {
+            //$.getJSON( "http://mediacompanion.nl/nlpa-mailer/content-test/highlights.php", function( data ) {
               if(data.length > 0){
 
                 $('.highlight-load').hide();
@@ -248,16 +317,14 @@
                       }
                     }
                   ]
-
-
-
                 });
               }
             });
+
             // INIT ITEMS (20)
             var itemcounter = 0;
-            //$.getJSON( "http://nightlifepartyagenda.nl/e983upktxkea/items/0", function( data ) {
-              $.getJSON( "http://mediacompanion.nl/nlpa-mailer/content-test/highlights.php", function( data ) {
+              $.getJSON( "http://nightlifepartyagenda.nl/e983upktxkea/items/0", function( data ) {
+              //$.getJSON( "http://mediacompanion.nl/nlpa-mailer/content-test/highlights.php", function( data ) {
               if(data.length > 0){
                 $.each( data, function( key, val ) {
                   $(".item-top-container").append("<div class='row base-row row-"+val.id+"'><div class='col-xs-12'><div class='datetime'><p class='date'>"+val.date+"</p></div></div><div class='col-xs-3 col-sm-3 col-md-3 col-lg-3'><img class='event-image' id='event-"+val.id+"' alt='"+val.name+"' src='http://nightlifepartyagenda.nl/images/events/"+val.image+"'></div><div class='col-xs-9 col-sm-9 col-md-9 col-lg-9 no-p-l'><p class='title'>"+val.name+"</p><p class='subtitle'>"+val.subtitle+"</p><div class='line-up' id='colorlineup-"+val.id+"'><strong style='color: rgb("+val.colour+")'>Line up:</strong><br/>"+val.line_up+"</div><a class='read-more' style='display:none;' href='#'>Lees meer</a><p class='location' id='colorlocation-"+val.id+"'><strong style='color: rgb("+val.colour+")'>Location: </strong><span>"+val.location+"</span></p><div class='links pull-right' id='link-container-"+val.id+"'></div></div></div>");
@@ -300,8 +367,27 @@
             });
             // handle load more content
             $('.content').scroll(function() {
-                loadMore();
-
+              if($('.content').scrollTop()  > ($('.screen-container').height() - 800) && loadable==0) {
+                if(loadtype==0){
+                  // LOAD ADVERT
+                  loadAd();
+                  loadtype=1;
+                  console.log("load advert");
+                }else if(loadtype==1){
+                  // LOAD EVENTS
+                  loadMore();
+                  loadtype=2
+                  console.log("load events");
+                }else if(loadtype==2){
+                  // LOAD HIGHLIGHT SINGLE
+                  loadHighlight();
+                  loadtype=3;
+                  console.log("load single");
+                }else if(loadtype==3){
+                  loadMore();
+                  loadtype=0;
+                }
+              }
             });
             //pop-ip handler
             idleTime = 0;
@@ -362,194 +448,41 @@
     </script>
 
 <style type="text/css">
-
- .front{
-        position: relative;
-        float: left;
-        width: 100%;
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-      }
-      .search-inner{
-        background: #fff;
-      }
-      .datepicker{
-          -webkit-appearance: none;
-         -moz-appearance:    none;
-         appearance:         none;
-          width: 100%;
-      }
-      .banner{
-        position: relative;
-        z-index: 99999;
-      }
-      .fixed-container{
-        height: 58px;
-        position: relative;
-        z-index: 9999;
-      }
-      .header{
-        position: relative;
-        background: #fff;
-        border-bottom: 1px solid #ccc;
-        z-index: 9;
-        width: 100%;
-        float: left;
-      }
-      #search-date{
-        font-size: 10px;
-      }
-      #search-title{
-        font-size: 10px;
-      }
-      #search-btn{
-        font-size: 10px;
-        padding: 9px;
-      }
-      .content{
-        position: absolute;
-        top: 144px;
-        bottom: 0;
-        width: 100%;
-        left: 0;
-        right: 0;
-        float: left;
-        overflow-y: scroll;
-        -webkit-overflow-scrolling: touch;
-        padding-bottom: 0 !important;
-      }
-      .front-container{
-        margin: 0 !important;
-      }
-      .front .front-container footer .footer-left p {
-          margin-top: 6px;
-          font-size: 13px !important;
-          line-height: 18px;
-      }
-      .front .front-container footer .footer-left p span {
-          font-size: 11.3px !important;
-      }
-      .col-xs-3{
-        margin-left: 0 !important;
-        margin-right: 0 !important;
-      }
-      .col-xs-9{
-        margin-left: 0 !important;
-        margin-right: 0 !important;
-      }
-      .row{
-        margin-left: 0 !important;
-        margin-right: 0 !important;
-      }
-      .hightlights-top-container{
-        float: left;
-        width: 100%;
-        position: relative;
-      }
-      .col-xs-3 img{
-        width: 100% !important;
-      }
-      .item-top-container{ background: #fff; float: left; width: 100%; }
-      .highlights-title{ margin: 0; background: #fff; }
-
-      .date{
-        background: #000;
-          color: #fff;
-          padding: 3px 6px 2px;
-          float: left;
-          font-size: 18px;
-          text-transform: uppercase;
-          margin: 0;
-      }
-      .datetime{
-        border-bottom: 1px solid #000;
-        float: left;
-        width: 100%;
-        margin-bottom: 12px;
-      }
-
-      .slide-inner .datetime{
-        float: left;
-        width: 100%;
-        margin-bottom: 12px;
-      }
-      
-      .slide-inner .date {
-          background: #000;
-          color: #fff;
-          padding: 3px 6px 2px;
-          float: left;
-          font-size: 18px !important;
-          text-transform: uppercase;
-      }
-
-.screen-container{
-  float: left;
-  width: 100%;
-}
-.content .row .links{
-  margin-bottom: 0;
-}
-.front-container>div .row {
-    padding: 0 0 0 0!important;
-    }
-    footer{
-      margin-top: 12px;
-    }
-    .highlights-title{
-      z-index: 99;
-      position: relative;
-      float: left;
-    }
-    .hightlights-top-container button{
-      float: right;
-      width: 40%;
-      background: #fff;
-      border:none;
-          padding: 0;
-      /* background: #000;
-      padding: 6px 10px;
-      margin: 1px;
-      color: #fff;
-      position: relative;
-      z-index: 99;
-      font-size: 8px;
-      border: 0;
-      text-transform: uppercase;
-      border-radius: 6px !important; */
-    }
-    .hightlights-top-container button img{
-          width: 100%;
-      max-width: 150px;
-      float: right;
-      padding-right: 6px;
-    }
-    .hightlights-top-container button span{
-      font-size: 10.5px;
-    }
-    .highlight-title-container{
-      float: left;
-      width: 100%;
-      position: relative;
-      z-index: 99;
-      background: #fff;
-    }
-    @media (max-width: 350px) {
-      .hightlights-top-container button{
-        padding-top: 6px;
-      }
-    }
-    .ook-adverteren{
-      position: absolute;
-      bottom: 6px;
-      left: 12px;
-      color: #fff;
-      font-size: 8px;
-      z-index: 99;
-    }
+  .front .highlight{
+    background: #000 !important;
+  }
+  .front .highlight img{
+    padding-bottom: 12px !important;
+  }
+  .front .highlight .datetime{
+    border-bottom: 1px solid #fff !important;
+  }
+  .front .highlight .datetime .date{
+    background: #fff !important;
+    color: #000 !important;
+  }
+  .front .highlight .title{
+    color: #fff !important;
+  }
+  .front .highlight .subtitle{
+    color: #fff !important;
+  }
+  .front .highlight .line-up{
+    color: #fff !important;
+  }
+  .front .highlight .line-up strong{
+    color: #aaa !important;
+  }
+  .front .highlight .location{
+    color: #fff !important;
+  }
+  .front .highlight .location strong{
+    color: #aaa !important;
+  }
+  .front .highlight .link-btn{
+    background: #fff !important;
+    color: #000 !important;
+  }
 </style>
 
 </body>
