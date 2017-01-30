@@ -255,7 +255,7 @@
     }
     .hightlights-top-container button img{
           width: 100%;
-      max-width: 150px;
+      max-width: 128px;
       float: right;
       padding-right: 6px;
     }
@@ -269,7 +269,7 @@
       z-index: 99;
       background: #fff;
     }
-    @media (max-width: 350px) {
+    @media (max-width: 800px) {
       .hightlights-top-container button{
         padding-top: 6px;
       }
