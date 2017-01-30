@@ -171,6 +171,13 @@
     <script type="text/javascript">
         app.initialize();
 
+        // handle url opens
+        function openUrl(url){
+            window.open(url, '_system', 'location=yes');
+            return false;
+            event.preventDefault();
+        }
+        
         // load more content
         var loadable = 0;
         var readclick = 0;
@@ -455,13 +462,6 @@
            }, 100);
           }, 0);
         });
-
-        // handle url opens
-        function openUrl(url){
-            window.open(url, '_blank', 'location=false');
-            return false;
-            event.preventDefault();
-        }
         
     </script>
 
