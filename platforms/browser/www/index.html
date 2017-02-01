@@ -442,8 +442,6 @@
             $('.subs-popup').click(function() {
               $(this).hide();
             });
-            
-              
 
         }
         init();
@@ -458,7 +456,7 @@
 
         // handle url opens
         function openUrl(url){
-            wdw = window.open(url, '_system', 'location=yes');
+            wdw = window.open(url, '_blank', 'location=yes');
             wdw.show();
             return false;
             event.preventDefault();
