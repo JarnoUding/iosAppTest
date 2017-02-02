@@ -114,6 +114,63 @@
     </div>
   </div>
 
+<div id="browser-container">
+  <iframe id="browser-frame" src=""></iframe>
+  <div id="browser-menu">
+    <a class="browser-close" onclick="closeBrowser();">Done</a>
+<!--     <ul>
+      <li><button>back</button></li>
+      <li><button>back</button></li>
+    </ul> -->
+  </div>
+</div>
+
+<style type="text/css">
+  #browser-container {
+    position: fixed;
+    top: 100%;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background: #696969;
+    z-index: 99999;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+  }
+  #browser-container.active{
+    top: 0;
+  }
+  #browser-frame {
+    position: absolute;
+    left: 0;
+    right: 0;
+    width: 100%;
+    top: 48px;
+    bottom: 0;
+    height: 100%;
+    background: url('img/browser-load.gif') center center no-repeat #696969;
+    -webkit-overflow-scrolling: touch;
+    border: none;
+    overflow-y: scroll;
+  }
+  #browser-menu {
+      position: absolute;
+      top: 0;
+      width: 100%;
+      padding-top: 24px;
+      height: 48px;
+      background: #212121;
+      border-bottom: 4px solid #696969;
+  }
+  .browser-close{
+    padding-left: 12px;
+    color: #fff;
+    text-decoration: none;
+  }
+</style>
+
 <div class="subs-popup" style="display:none;">
   
   <!-- Begin MailChimp Signup Form -->
@@ -182,8 +239,8 @@
                 loadable = 1;
 
                 $.ajax({
-                  //url: 'http://nightlifepartyagenda.nl/e983upktxkea/items/'+offset,
-                  url: 'http://mediacompanion.nl/nlpa-mailer/content-test/highlights.php',
+                  url: 'http://nightlifepartyagenda.nl/e983upktxkea/items/'+offset,
+                  //url: 'http://mediacompanion.nl/nlpa-mailer/content-test/highlights.php',
                   type: 'GET',
                   dataType: "JSON",
                   success: function (data) {
@@ -216,8 +273,8 @@
                 //alert('URL: http://nightlifepartyagenda.nl/e983upktxkea/ad/'+excludeIdsAd);
 
                 $.ajax({
-                  //url: 'http://nightlifepartyagenda.nl/e983upktxkea/ad/'+excludeIdsAd,
-                  url: 'http://mediacompanion.nl/nlpa-mailer/content-test/adsingle.php',
+                  url: 'http://nightlifepartyagenda.nl/e983upktxkea/ad/'+excludeIdsAd,
+                  //url: 'http://mediacompanion.nl/nlpa-mailer/content-test/adsingle.php',
                   type: 'GET',
                   dataType: "JSON",
                   success: function (data) {
@@ -246,8 +303,8 @@
                 //alert('http://nightlifepartyagenda.nl/e983upktxkea/highlight/'+excludeIdsHighlight);
 
                 $.ajax({
-                  //url: 'http://nightlifepartyagenda.nl/e983upktxkea/highlight/'+excludeIdsHighlight,
-                  url: 'http://mediacompanion.nl/nlpa-mailer/content-test/highlightsingle.php',
+                  url: 'http://nightlifepartyagenda.nl/e983upktxkea/highlight/'+excludeIdsHighlight,
+                  //url: 'http://mediacompanion.nl/nlpa-mailer/content-test/highlightsingle.php',
                   type: 'GET',
                   dataType: "JSON",
                   success: function (data) {
@@ -285,8 +342,8 @@
         function init(){
 
             // HIGHLIGHTS
-            //$.getJSON( "http://nightlifepartyagenda.nl/e983upktxkea/highlights", function( data ) {
-            $.getJSON( "http://mediacompanion.nl/nlpa-mailer/content-test/highlights.php", function( data ) {
+            $.getJSON( "http://nightlifepartyagenda.nl/e983upktxkea/highlights", function( data ) {
+            //$.getJSON( "http://mediacompanion.nl/nlpa-mailer/content-test/highlights.php", function( data ) {
               if(data.length > 0){
 
                 $('.highlight-load').hide();
@@ -340,8 +397,8 @@
 
             // INIT ITEMS (20)
             var itemcounter = 0;
-              //$.getJSON( "http://nightlifepartyagenda.nl/e983upktxkea/items/0", function( data ) {
-              $.getJSON( "http://mediacompanion.nl/nlpa-mailer/content-test/highlights.php", function( data ) {
+              $.getJSON( "http://nightlifepartyagenda.nl/e983upktxkea/items/0", function( data ) {
+              //$.getJSON( "http://mediacompanion.nl/nlpa-mailer/content-test/highlights.php", function( data ) {
               if(data.length > 0){
                 $.each( data, function( key, val ) {
                   $(".item-top-container").append("<div class='row base-row row-"+val.id+"'><div class='col-xs-12'><div class='datetime'><p class='date'>"+val.date+"</p></div></div><div class='col-xs-3 col-sm-3 col-md-3 col-lg-3'><img class='event-image' id='event-"+val.id+"' alt='"+val.name+"' src='http://nightlifepartyagenda.nl/images/events/"+val.image+"'></div><div class='col-xs-9 col-sm-9 col-md-9 col-lg-9 no-p-l'><p class='title'>"+val.name+"</p><p class='subtitle'>"+val.subtitle+"</p><div class='line-up' id='colorlineup-"+val.id+"'><strong style='color: rgb("+val.colour+")'>Line up:</strong><br/>"+val.line_up+"</div><a class='read-more' style='display:none;' href='#'>Lees meer</a><p class='location' id='colorlocation-"+val.id+"'><strong style='color: rgb("+val.colour+")'>Location: </strong><span>"+val.location+"</span></p><div class='links pull-right' id='link-init-container-"+val.id+"'></div></div></div>");
@@ -456,8 +513,24 @@
 
         // handle url opens
         function openUrl(url){
-            wdw = window.open(url, '_blank', 'location=yes');
-            wdw.show();
+            // wdw = window.open(url, '_blank', 'location=yes');
+            // wdw.show();
+            
+            browser = $('#browser-container');
+            browserFrame = $('#browser-frame');
+            browserFrame.attr('src', url);
+            browser.addClass('active');
+            console.log(browserFrame.attr('src'));
+            console.log(url);
+            return false;
+            event.preventDefault();
+        }
+        function closeBrowser(){
+            url = '';
+            browser = $('#browser-container');
+            browserFrame = $('#browser-frame');
+            browserFrame.attr('src', url);
+            browser.removeClass('active');
             return false;
             event.preventDefault();
         }
