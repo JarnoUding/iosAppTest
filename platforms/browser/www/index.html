@@ -59,6 +59,9 @@
     .front-container>div .row .datetime .date {
       font-size: 3vw!important;
   }
+  .event-banner-container{
+    margin-top: 12px;
+  }
     </style>
 </head>
 
@@ -115,14 +118,13 @@
   </div>
 
 <div id="browser-container">
-  <iframe id="browser-frame" src=""></iframe>
   <div id="browser-menu">
     <a class="browser-close" onclick="closeBrowser();">Done</a>
-<!--     <ul>
-      <li><button>back</button></li>
-      <li><button>back</button></li>
-    </ul> -->
   </div>
+  <div id="browser-frame-container">
+    <iframe id="browser-frame" scrolling="yes" src=""></iframe>
+  </div>
+  
 </div>
 
 <style type="text/css">
@@ -147,27 +149,42 @@
     left: 0;
     right: 0;
     width: 100%;
-    top: 48px;
+    top: 0;
     bottom: 0;
     height: 100%;
     background: url('img/browser-load.gif') center center no-repeat #696969;
     -webkit-overflow-scrolling: touch;
     border: none;
     overflow-y: scroll;
+    padding: 0;
+    margin: 0;
   }
   #browser-menu {
-      position: absolute;
-      top: 0;
+      position: relative;
+      top: 100%;
       width: 100%;
       padding-top: 24px;
       height: 48px;
       background: #212121;
       border-bottom: 4px solid #696969;
+      -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+  }
+  .active  #browser-menu{
+    top: 0;
   }
   .browser-close{
     padding-left: 12px;
     color: #fff;
     text-decoration: none;
+  }
+  #browser-frame-container{
+    width:100% !important;
+    height:100% !important;
+    overflow:scroll !important;
+    -webkit-overflow-scrolling:touch !important;
+    position: relative;
+    z-index: 9999999;
   }
 </style>
 
@@ -350,7 +367,7 @@
                   $('.init-load').hide();
 
                 // make highlight top container
-                $( ".hightlights-top-container" ).append( "<div class='highlight-title-container' style='margin-top: -2px;'><h2 class='highlights-title'>Highlight<span>s</span>:</h2><button id='pop-btn' style='margin-top: 5px;'><img src='img/btn.png'/></button></div><div class='highlight-container row highlight' style='margin-bottom: 0px !important; margin-top: 0px !important; padding: 0 !important;float: left;width: 100% !important;'></div>" );
+                $( ".hightlights-top-container" ).append( "<div class='highlight-title-container' style='margin-top: -2px;'><h2 class='highlights-title'>Highlight<span>s</span>:</h2><button id='pop-btn' style='margin-top: 5px;'><img style='margin-top: 4px; margin-right: 4px;' src='img/btn.png'/></button></div><div class='highlight-container row highlight' style='margin-bottom: 0px !important; margin-top: 0px !important; padding: 0 !important;float: left;width: 100% !important;'></div>" );
 
                 $( "#pop-btn" ).click(function() {
                   $('.subs-popup').show();
